@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/styles.css">
+    <title>Posts</title>
+</head>
+<body>
+
+<div class="container">
+
+    <div th:include="header :: copy"></div>
+
+    <div class="jumbotron" th:each="post: ${posts}">
+
+        <h2 th:text="${post.header}">Post header</h2>
+        <p class="small pb-3">by <span class="pt-1" th:text="${post.user.login}"></span></p>
+        <p th:text="${post.content}">Post text...</p>
+
+    </div>
+</div>
+
+</body>
+</html>

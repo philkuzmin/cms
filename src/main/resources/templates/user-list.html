@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/styles.css">
+    <title>Users</title>
+</head>
+<body>
+
+<div>
+    <div class="container">
+
+        <div th:include="header :: copy"></div>
+
+        <div class="jumbotron">
+
+            <h3 class="text-center text-info pb-3">Users</h3>
+
+            <table class="table">
+                <thead class="thead-light">
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Login</th>
+                    <th scope="col">Role</th>
+                    <th scope="col">State</th>
+                    <th scope="col">Delete</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="person : ${users}">
+                    <th th:text="${person.id}" scope="row">1</th>
+                    <td th:text="${person.login}">Mark</td>
+                    <td th:text="${person.role}">USER</td>
+                    <td th:text="${person.state}">ACTIVE</td>
+                    <td th:if="${person.state == 'ACTIVE'}"><a th:href="@{'/users/' + ${person.id} + '/delete'}"
+                                                               class="btn">Delete</a></td>
+                    <td th:if="${person.state == 'DELETED'}"><a th:href="@{'/users/' + ${person.id} + '/restore'}"
+                                                                class="btn">Restore</a></td>
+                </tr>
+                </tbody>
+            </table>
+
+        </div>
+
+    </div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/styles.css">
+    <title>New post</title>
+</head>
+<body>
+
+<div>
+    <div class="container">
+
+        <div th:include="header :: copy"></div>
+
+        <div class="jumbotron">
+            <div id="login-row" class="row justify-content-center align-items-center">
+                <div id="login-column" class="col-md-6">
+                    <div id="login-box" class="col-md-12">
+                        <form id="new-post" class="form" action="/newPost" method="post">
+                            <h3 class="text-center text-info">New Post</h3>
+
+                            <div class="form-group">
+                                <label for="title" class="text-info">Title:</label><br>
+                                <input type="text" name="title" id="title" class="form-control">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="text" class="text-info">Main text:</label><br>
+                                <textarea name="text" rows="10" id="text" class="form-control"></textarea>
+                            </div>
+
+                            <div class="form-group">
+                                <input type="submit" name="submit" class="btn btn-info btn-md" value="Post">
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+</body>
+</html>
