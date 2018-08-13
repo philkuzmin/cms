@@ -10,4 +10,5 @@ public interface PostService {
     List<Post> getAllPosts();
     void addNewPost(Post post);
     Page<Post> getPostsPage(Pageable pageable);
+    Page<Post> getAllPostsByUser(Long id, Pageable pageable);
 }

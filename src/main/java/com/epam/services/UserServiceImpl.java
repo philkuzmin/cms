@@ -21,6 +21,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public User getUserById(Long id) {
+        return userRepository.getOne(id);
+    }
+
+    @Override
     public void deleteUser(Long id) {
         User user = userRepository.getOne(id);
         user.setState(States.DELETED);

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<nav th:fragment="copy">
+
+    <ul th:if="${page.totalPages > 0}" class="nav nav-pills justify-content-center pb-3">
+
+        <li class="page-item" th:class="${page.number == 0} ? 'page-item disabled' : 'page-item'">
+            <a class="page-link"
+               th:href="@{/postsBy(id=${requestedUser.id}, pageSize=5, page=${page.number - 1})}">Previous</a></li>
+
+        <li class="page-item" th:each="pg : ${#numbers.sequence(0, page.totalPages - 1)}">
+            <a class="page-link" th:class="${page.number == pg} ? 'page-link active' : 'page-link'"
+               th:href="@{/postsBy(id=${requestedUser.id}, size=5, page=${pg})}" th:text="${pg + 1}"></a></li>
+
+        <li class="page-item" th:class="${page.number == page.totalPages - 1} ? 'page-item disabled' : 'page-item'">
+            <a class="page-link"
+               th:href="@{/postsBy(id=${requestedUser.id}, size=5, page=${page.number + 1})}">Next</a></li>
+    </ul>
+
+</nav>
+
+</body>
+</html>

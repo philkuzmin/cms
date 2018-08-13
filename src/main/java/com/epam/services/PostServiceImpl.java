@@ -29,4 +29,9 @@ public class PostServiceImpl implements PostService {
     public Page<Post> getPostsPage(Pageable pageable) {
         return postRepository.findAll(pageable);
     }
+
+    @Override
+    public Page<Post> getAllPostsByUser(Long id, Pageable pageable) {
+        return postRepository.findAllByUserIdOrderByIdDesc(id, pageable);
+    }
 }
