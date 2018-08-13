@@ -12,13 +12,30 @@
 
     <div th:include="header :: copy"></div>
 
-    <div class="jumbotron" th:each="post: ${posts}">
+    <div class="jumbotron" th:each="post: ${page.content}">
 
         <h2 th:text="${post.header}">Post header</h2>
-        <p class="small pb-3">by <span class="pt-1" th:text="${post.user.login}"></span></p>
-        <p th:text="${post.content}">Post text...</p>
+        <p class="text-muted small pb-3">by <span class="pt-1" th:text="${post.user.login}"></span></p>
+        <p th:utext="${#strings.replace( #strings.escapeXml( post.content ),T(java.lang.System).getProperty('line.separator'),'&lt;br /&gt;')}">Post text...</p>
 
     </div>
+
+    <nav>
+
+        <ul th:if="${page.totalPages > 0}" class="nav nav-pills justify-content-center pb-3">
+
+            <li class="page-item" th:class="${page.number == 0} ? 'page-item disabled' : 'page-item'">
+                <a class="page-link" th:href="@{/(pageSize=5, page=1)}">Previous</a></li>
+
+            <li class="page-item" th:each="pg : ${#numbers.sequence(0, page.totalPages - 1)}">
+                <a class="page-link" th:class="${page.number == pg} ? 'page-link active' : 'page-link'" th:href="@{/(size=5, page=${pg})}" th:text="${pg + 1}"></a></li>
+
+            <li class="page-item" th:class="${page.number == page.totalPages - 1} ? 'page-item disabled' : 'page-item'">
+                <a class="page-link" th:href="@{/(size=5, page=${page.number + 1})}">Next</a></li>
+        </ul>
+
+    </nav>
+
 </div>
 
 </body>

@@ -17,3 +17,15 @@ body {
 #login .container #login-row #login-column #login-box #login-form #register-link {
   margin-top: -85px;
 }
+
+.page-item a:hover {
+    color: black;
+}
+
+.page-item a {
+    color: black;
+}
+
+.active {
+    background-color: #EAEAEA;
+}

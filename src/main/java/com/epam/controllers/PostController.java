@@ -6,13 +6,15 @@ import com.epam.model.Post;
 import com.epam.security.UserDetailsImpl;
 import com.epam.services.PostServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-
-import java.util.List;
 
 @Controller
 public class PostController {
@@ -21,7 +23,7 @@ public class PostController {
     private PostServiceImpl postService;
 
     @GetMapping("/")
-    public String showAllPosts(Authentication authentication, ModelMap model) {
+    public String showAllPosts(Authentication authentication, ModelMap model, Pageable pageable) {
 
         if (authentication != null) {
             UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
@@ -29,8 +31,10 @@ public class PostController {
             model.addAttribute("user", user);
         }
 
-        List<Post> posts = postService.getAllPosts();
-        model.addAttribute("posts", posts);
+        pageable = PageRequest.of(pageable.getPageNumber(), 5, Sort.by("id").descending());
+
+        Page<Post> page = postService.getPostsPage(pageable);
+        model.addAttribute("page", page);
         return "posts";
     }
 
