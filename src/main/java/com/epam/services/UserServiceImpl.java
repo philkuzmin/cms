@@ -2,9 +2,11 @@ package com.epam.services;
 
 import com.epam.model.States;
 import com.epam.model.User;
+import com.epam.model.UserForm;
 import com.epam.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -14,6 +16,9 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     @Override
     public List<User> getAllUsers() {
@@ -39,5 +44,15 @@ public class UserServiceImpl implements UserService {
         userRepository.saveAndFlush(user);
     }
 
+    @Override
+    public void updateUser(UserForm userForm, User user) {
 
+        String password = userForm.getPassword();
+
+        if (password != null && !password.isEmpty()) {
+            user.setPassword(passwordEncoder.encode(password));
+        }
+        user.setLogin(userForm.getUsername());
+        userRepository.saveAndFlush(user);
+    }
 }

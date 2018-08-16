@@ -1,6 +1,8 @@
 package com.epam.controllers;
 
 import com.epam.dto.UserDto;
+import com.epam.model.User;
+import com.epam.model.UserForm;
 import com.epam.security.UserDetailsImpl;
 import com.epam.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -34,6 +37,26 @@ public class UserController {
             return "user-list";
         }
         return "/";
+    }
+
+    @GetMapping("/user")
+    public String getUserDetails(Authentication authentication, ModelMap model) {
+
+        if (authentication != null) {
+            UserDto user = UserDto.from(((UserDetailsImpl) authentication.getPrincipal()).getUser());
+            model.addAttribute("user", user);
+            return "user-details";
+        }
+        return "/";
+    }
+
+    @PostMapping("/updateUser")
+    public String updateUser(UserForm userForm, Authentication authentication, ModelMap model) {
+
+        User user = ((UserDetailsImpl) authentication.getPrincipal()).getUser();
+        userService.updateUser(userForm, user);
+        model.addAttribute("updated", "success");
+        return "user-details";
     }
 
     @GetMapping("/users/{id}/delete")
