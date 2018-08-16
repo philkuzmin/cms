@@ -29,3 +29,7 @@ body {
 .active {
     background-color: #EAEAEA;
 }
+
+.nav-link {
+    color: black;
+}
