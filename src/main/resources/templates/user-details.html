@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/styles.css">
+    <title>User details</title>
+</head>
+<body>
+
+<div>
+    <div class="container">
+
+        <div th:include="header :: copy"></div>
+
+        <div class="jumbotron">
+
+            <h3 th:if="${updated}" th:text="Updated successfully!"></h3>
+
+            <form action="updateUser" method="post">
+
+                <div class="row justify-content-center">
+
+                    <div class="col-2">
+                        <p>Photo</p>
+                    </div>
+
+                    <div class="col-4">
+                        <input type="text" th:value="${user.login}" name="login" style="h3" />
+                    </div>
+
+                </div>
+
+                <div class="row justify-content-center p-5">
+
+                    <div class="col-3">
+                        <p>Change password:</p>
+                        <p>Role:</p>
+                        <p>Status:</p>
+                    </div>
+
+                    <div class="col-4">
+                        <input type="password" name="password" id="password">
+                        <p th:text="${user.role}" class="pt-2"></p>
+                        <p th:text="${user.state}"></p>
+                    </div>
+                </div>
+
+                <div class="row justify-content-center p-5">
+                    <input type="submit" name="submit" class="btn btn-info btn-md mr-2" value="Save">
+                    <a href="/" name="cancel" class="btn btn-info btn-md">Cancel</a>
+                </div>
+            </form>
+        </div>
+
+    </div>
+</div>
+
+</body>
+</html>
