@@ -56,6 +56,7 @@ public class UserController {
         User user = ((UserDetailsImpl) authentication.getPrincipal()).getUser();
         userService.updateUser(userForm, user);
         model.addAttribute("updated", "success");
+        model.addAttribute("user", user);
         return "user-details";
     }
 

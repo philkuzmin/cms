@@ -19,6 +19,7 @@
     <div class="jumbotron" th:each="post: ${page.content}">
 
         <h2 th:text="${post.header}">Post header</h2>
+        <img th:src="@{${'/userpic/' + post.user.id}}" height="50" width="50" >
         <p class="text-muted small pb-3">by <a class="pt-1" th:href="@{/postsBy(id=${post.user.id})}" th:text="${post.user.login}"></a></p>
         <p th:utext="${#strings.replace( #strings.escapeXml( post.content ),T(java.lang.System).getProperty('line.separator'),'&lt;br /&gt;')}">Post text...</p>
 

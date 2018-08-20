@@ -15,31 +15,38 @@
 
         <div class="jumbotron">
 
-            <h3 th:if="${updated}" th:text="Updated successfully!"></h3>
+            <h3 th:if="${updated}" th:text="${'Updated successfully!'}" class="text-white text-center pb-5"></h3>
 
-            <form action="updateUser" method="post">
 
-                <div class="row justify-content-center">
+            <div class="row justify-content-center">
 
-                    <div class="col-2">
-                        <p>Photo</p>
-                    </div>
-
-                    <div class="col-4">
-                        <input type="text" th:value="${user.login}" name="login" style="h3" />
-                    </div>
-
+                <div class="col-3" align="center">
+                    <img th:src="@{${'/userpic/' + user.id}}" height="250" width="250" >
+                    <form action="/uploadUserpic" method="post" enctype="multipart/form-data">
+                        <input type="file" name="file" class="small">
+                        <input type="submit" value="Upload" class="btn btn-info btn-sm mt-1">
+                    </form>
                 </div>
 
+                <div class="col-4">
+                    <h3 th:text="${user.login}"/>
+                </div>
+
+            </div>
+
+
+            <form action="updateUser" method="post">
                 <div class="row justify-content-center p-5">
 
                     <div class="col-3">
+                        <p>Change login:</p>
                         <p>Change password:</p>
                         <p>Role:</p>
                         <p>Status:</p>
                     </div>
 
                     <div class="col-4">
+                        <input type="text" th:value="${user.login}" name="username">
                         <input type="password" name="password" id="password">
                         <p th:text="${user.role}" class="pt-2"></p>
                         <p th:text="${user.state}"></p>
